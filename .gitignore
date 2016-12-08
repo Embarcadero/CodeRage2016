@@ -1,0 +1,14 @@
+# Build folders
+Win32/
+Win64/
+
+# IDE-managed folders
+__history/
+__recovery/
+__astcache/
+
+# Misc files
+*.local
+*.res
+*.stat
+*.identcache
