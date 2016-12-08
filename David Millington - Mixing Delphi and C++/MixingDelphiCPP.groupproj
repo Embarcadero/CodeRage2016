@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4FD36CB1-030F-423B-9B53-4D5727E5C8D4}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="CPP calling Delphi\CPP_Call_Delphi.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Delphi calling CPP\Delphi_Call_CPP.dproj">
+            <Dependencies>Delphi calling CPP\CPPPackage.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="Delphi calling CPP\CPPPackage.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="CPP_Call_Delphi">
+        <MSBuild Projects="CPP calling Delphi\CPP_Call_Delphi.cbproj"/>
+    </Target>
+    <Target Name="CPP_Call_Delphi:Clean">
+        <MSBuild Projects="CPP calling Delphi\CPP_Call_Delphi.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CPP_Call_Delphi:Make">
+        <MSBuild Projects="CPP calling Delphi\CPP_Call_Delphi.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Delphi_Call_CPP" DependsOnTargets="CPPPackage">
+        <MSBuild Projects="Delphi calling CPP\Delphi_Call_CPP.dproj"/>
+    </Target>
+    <Target Name="Delphi_Call_CPP:Clean" DependsOnTargets="CPPPackage:Clean">
+        <MSBuild Projects="Delphi calling CPP\Delphi_Call_CPP.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Delphi_Call_CPP:Make" DependsOnTargets="CPPPackage:Make">
+        <MSBuild Projects="Delphi calling CPP\Delphi_Call_CPP.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CPPPackage">
+        <MSBuild Projects="Delphi calling CPP\CPPPackage.cbproj"/>
+    </Target>
+    <Target Name="CPPPackage:Clean">
+        <MSBuild Projects="Delphi calling CPP\CPPPackage.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CPPPackage:Make">
+        <MSBuild Projects="Delphi calling CPP\CPPPackage.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="CPP_Call_Delphi;Delphi_Call_CPP;CPPPackage"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="CPP_Call_Delphi:Clean;Delphi_Call_CPP:Clean;CPPPackage:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="CPP_Call_Delphi:Make;Delphi_Call_CPP:Make;CPPPackage:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
