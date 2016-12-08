@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{6AB12C46-1624-4241-BFAA-C136F900A843}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ClangPerformance.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ClassicPerformance.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ClangPerformance">
+        <MSBuild Projects="ClangPerformance.cbproj"/>
+    </Target>
+    <Target Name="ClangPerformance:Clean">
+        <MSBuild Projects="ClangPerformance.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ClangPerformance:Make">
+        <MSBuild Projects="ClangPerformance.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="ClassicPerformance">
+        <MSBuild Projects="ClassicPerformance.cbproj"/>
+    </Target>
+    <Target Name="ClassicPerformance:Clean">
+        <MSBuild Projects="ClassicPerformance.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ClassicPerformance:Make">
+        <MSBuild Projects="ClassicPerformance.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ClangPerformance;ClassicPerformance"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ClangPerformance:Clean;ClassicPerformance:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ClangPerformance:Make;ClassicPerformance:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
